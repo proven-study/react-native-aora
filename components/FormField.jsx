@@ -8,7 +8,7 @@ const FormField = ({
   value,
   handleChange,
   containerClassName,
-  keyboardType,
+  inputMode,
   secureTextEntry = false,
   placeholder,
 }) => {
@@ -23,10 +23,11 @@ const FormField = ({
       <View className="border border-black-200 w-full h-16 bg-black-100 rounded-lg focus:border-2 focus:border-secondary items-center flex-row">
         <TextInput
           placeholder={placeholder}
+          placeholderTextColor="#7B7B8B"
           value={value}
           onChangeText={handleChange}
-          className="w-full h-full flex-1 text-white font-psemibold font-semibold text-base rounded-lg px-4 placeholder:text-gray-800"
-          keyboardType={keyboardType}
+          className="w-full h-full flex-1 text-white font-psemibold font-semibold text-base rounded-lg px-4 tracking-[0.2px]"
+          inputMode={inputMode}
           secureTextEntry={secureTextEntry && !showPassword}
         />
 

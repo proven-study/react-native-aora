@@ -5,6 +5,7 @@ const CustomGradientButton = ({
   text,
   handlePress,
   isLoading,
+  disabled,
   containerStyles,
   buttonClassNames,
   textClassNames,
@@ -16,7 +17,7 @@ const CustomGradientButton = ({
       className={`w-full h-[58px] justify-center items-center ${buttonClassNames} ${
         isLoading ? "opacity-70" : ""
       }`}
-      disabled={isLoading}
+      disabled={disabled || isLoading}
     >
       <LinearGradient
         colors={["#FF8C00", "#FFA300"]}

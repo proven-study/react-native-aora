@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import { Link, router } from "expo-router";
 
 import { images } from "../../constants";
 import { CustomGradientButton, FormField } from "../../components";
+import { signIn } from "../../lib/appwrite";
+import { validateEmail } from "../../lib/common";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -12,12 +14,34 @@ const SignIn = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
+    if (!form.email || !form.password) {
+      return Alert.alert("Error", "Please fill all the fields");
+    } else if (!validateEmail(form.email)) {
+      return Alert.alert("Error", "Please enter a valid email");
+    }
+
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    try {
+      const result = await signIn(form);
+
+      if (result.status === "error") {
+        return Alert.alert("Error", result.message);
+      }
+
+      console.log("handleSignIn -> result -> data", result.data);
+
+      // now set it to global state and redirect to home
+      router.replace("/home");
+
+      Alert.alert("Success", result.message);
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
       setIsSubmitting(false);
-    }, 2000);
+      setForm({ email: "", password: "" });
+    }
   };
 
   return (
@@ -38,7 +62,7 @@ const SignIn = () => {
         value={form.email}
         handleChange={(value) => setForm({ ...form, email: value })}
         containerClassName="mt-8"
-        keyboardType="email-address" // for auto fill
+        inputMode="email" // for auto fill
       />
 
       <FormField
@@ -59,8 +83,9 @@ const SignIn = () => {
 
       <CustomGradientButton
         text="Log In"
-        onPress={handleSignIn}
+        handlePress={handleSignIn}
         isLoading={isSubmitting}
+        // disabled={!form.email || !form.password}
       />
 
       {/* <View className="items-center mt-5">

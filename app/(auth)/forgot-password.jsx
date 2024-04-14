@@ -40,12 +40,12 @@ const ForgotPassword = () => {
         value={form.email}
         handleChange={(value) => setForm({ ...form, email: value })}
         containerClassName="mt-8 mb-6"
-        keyboardType="email-address"
+        inputMode="email" // for auto fill
       />
 
       <CustomGradientButton
         text="Send OTP"
-        onPress={handleSignIn}
+        handlePress={handleSignIn}
         isLoading={isSubmitting}
       />
 

@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
 import { Link, router, useLocalSearchParams } from "expo-router";
 
 import { images } from "../../constants";
 import { CustomGradientButton, FormField } from "../../components";
+import { signUp } from "../../lib/appwrite";
+import { validateEmail } from "../../lib/common";
 
 const SignUp = () => {
   const params = useLocalSearchParams();
@@ -16,12 +18,32 @@ const SignUp = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
+    if (!form.username || !form.email || !form.password) {
+      return Alert.alert("Error", "Please fill all the fields");
+    } else if (!validateEmail(form.email)) {
+      return Alert.alert("Error", "Please enter a valid email");
+    }
+
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    try {
+      const result = await signUp(form);
+
+      if (result.status === "error") {
+        return Alert.alert("Error", result.message);
+      }
+
+      // now set it to global state and redirect to home
+      router.replace("/home");
+
+      Alert.alert("Success", result.message);
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
       setIsSubmitting(false);
-    }, 2000);
+      setForm({ username: "", email: "", password: "" });
+    }
   };
 
   return (
@@ -50,7 +72,7 @@ const SignUp = () => {
         value={form.email}
         handleChange={(value) => setForm({ ...form, email: value })}
         containerClassName="mt-8"
-        keyboardType="email-address" // for auto fill
+        inputMode="email" // for auto fill
       />
 
       <FormField
@@ -64,8 +86,9 @@ const SignUp = () => {
 
       <CustomGradientButton
         text="Sign Up"
-        onPress={handleSignUp}
+        handlePress={handleSignUp}
         isLoading={isSubmitting}
+        // disabled={!form.username || !form.email || !form.password}
       />
 
       <View className="items-center mt-5">
