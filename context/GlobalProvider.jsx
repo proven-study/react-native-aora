@@ -1,5 +1,10 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { getCurrentUser } from "../lib/appwrite";
+import { Image, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+
+import { icons } from "../constants";
 
 const GlobalContext = createContext();
 
@@ -10,7 +15,14 @@ const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const value = useMemo(
+    () => ({ isLoggedIn, setIsLoggedIn, user, setUser, isLoading }),
+    [isLoggedIn, setIsLoggedIn, user, setUser, isLoading]
+  );
+
   useEffect(() => {
+    setIsLoading(true);
+
     getCurrentUser()
       .then((result) => {
         if (result.status === "success") {
@@ -29,12 +41,24 @@ const GlobalProvider = ({ children }) => {
       });
   }, []);
 
+  if (isLoading) {
+    return (
+      <SafeAreaView
+        // className="bg-primary h-full" // This is not working on nativewind v4
+        style={{ backgroundColor: "#161622", height: "100%" }}
+      >
+        <View className="h-full justify-center items-center">
+          <Image source={icons.appLoading} />
+        </View>
+
+        {/* clock, wifi, battery section bg and text color */}
+        <StatusBar backgroundColor="#161622" style="light" />
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <GlobalContext.Provider
-      value={{ isLoggedIn, setIsLoggedIn, user, setUser, isLoading }}
-    >
-      {children}
-    </GlobalContext.Provider>
+    <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
   );
 };
 

@@ -2,8 +2,8 @@ import { View, Text } from "react-native";
 
 const Bookmark = () => {
   return (
-    <View>
-      <Text>Bookmark</Text>
+    <View className="bg-primary h-full">
+      <Text className="text-white">Bookmark</Text>
     </View>
   );
 };

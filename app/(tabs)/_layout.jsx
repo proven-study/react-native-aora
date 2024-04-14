@@ -1,5 +1,7 @@
-import { View, Text, Image } from "react-native";
-import { Tabs, Redirect } from "expo-router";
+import { View, Text, Image, ScrollView } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { Tabs } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { icons } from "../../constants";
 
@@ -32,41 +34,50 @@ const tabs = [
 
 const TabsLayout = () => {
   return (
-    <>
-      <Tabs
-        screenOptions={{
-          tabBarShowLabel: false,
-          tabBarActiveTintColor: "#FFA001",
-          tabBarInactiveTintColor: "#CDCDE0",
-          tabBarStyle: {
-            backgroundColor: "#161622",
-            borderTopWidth: 1,
-            borderTopColor: "#232533",
-            // shadowColor: "transparent",
-            height: 84,
-          },
-        }}
-      >
-        {tabs.map((tab) => (
-          <Tabs.Screen
-            key={tab.name}
-            name={tab.name}
-            options={{
-              title: tab.title,
-              headerShown: false,
-              tabBarIcon: ({ color, focused }) => (
-                <TabIcon
-                  icon={tab.icon}
-                  color={color}
-                  name={tab.title}
-                  focused={focused}
-                />
-              ),
-            }}
-          />
-        ))}
-      </Tabs>
-    </>
+    <SafeAreaView
+      // className="bg-primary h-full" // This is not working on nativewind v4
+      style={{ backgroundColor: "#161622", height: "100%" }}
+      edges={["right", "left", "top"]}
+    >
+      <ScrollView contentContainerStyle={{ height: "100%" }}>
+        <Tabs
+          screenOptions={{
+            tabBarShowLabel: false,
+            tabBarActiveTintColor: "#FFA001",
+            tabBarInactiveTintColor: "#CDCDE0",
+            tabBarStyle: {
+              backgroundColor: "#161622",
+              borderTopWidth: 1,
+              borderTopColor: "#232533",
+              // shadowColor: "transparent",
+              height: 84,
+            },
+          }}
+        >
+          {tabs.map((tab) => (
+            <Tabs.Screen
+              key={tab.name}
+              name={tab.name}
+              options={{
+                title: tab.title,
+                headerShown: false,
+                tabBarIcon: ({ color, focused }) => (
+                  <TabIcon
+                    icon={tab.icon}
+                    color={color}
+                    name={tab.title}
+                    focused={focused}
+                  />
+                ),
+              }}
+            />
+          ))}
+        </Tabs>
+      </ScrollView>
+
+      {/* clock, wifi, battery section bg and text color */}
+      <StatusBar backgroundColor="#161622" style="light" />
+    </SafeAreaView>
   );
 };
 

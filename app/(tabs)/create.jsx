@@ -2,8 +2,8 @@ import { View, Text } from "react-native";
 
 const Create = () => {
   return (
-    <View>
-      <Text>Create</Text>
+    <View className="bg-primary h-full">
+      <Text className="text-white">Create</Text>
     </View>
   );
 };
