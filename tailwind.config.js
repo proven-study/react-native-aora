@@ -4,6 +4,9 @@ module.exports = {
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
+      screens: {
+        sm: "375px",
+      },
       colors: {
         primary: "#161622",
         secondary: {
@@ -21,15 +24,15 @@ module.exports = {
         },
       },
       fontFamily: {
-        pthin: ["Poppins-Thin", "sans-serif"],
-        pextralight: ["Poppins-ExtraLight", "sans-serif"],
-        plight: ["Poppins-Light", "sans-serif"],
-        pregular: ["Poppins-Regular", "sans-serif"],
-        pmedium: ["Poppins-Medium", "sans-serif"],
-        psemibold: ["Poppins-SemiBold", "sans-serif"],
-        pbold: ["Poppins-Bold", "sans-serif"],
-        pextrabold: ["Poppins-ExtraBold", "sans-serif"],
-        pblack: ["Poppins-Black", "sans-serif"],
+        pthin: ["Poppins-Thin", "sans-serif"], // font-weight: 100
+        pextralight: ["Poppins-ExtraLight", "sans-serif"], // font-weight: 200
+        plight: ["Poppins-Light", "sans-serif"], // font-weight: 300
+        pregular: ["Poppins-Regular", "sans-serif"], // font-weight: 400
+        pmedium: ["Poppins-Medium", "sans-serif"], // font-weight: 500
+        psemibold: ["Poppins-SemiBold", "sans-serif"], // font-weight: 600
+        pbold: ["Poppins-Bold", "sans-serif"], // font-weight: 700
+        pextrabold: ["Poppins-ExtraBold", "sans-serif"], // font-weight: 800
+        pblack: ["Poppins-Black", "sans-serif"], // font-weight: 900
       },
     },
   },
