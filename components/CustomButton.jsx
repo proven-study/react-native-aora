@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, ActivityIndicator } from "react-native";
 
 const CustomButton = ({
-  title,
+  text,
   handlePress,
   isLoading,
   buttonClassNames,
@@ -22,7 +22,7 @@ const CustomButton = ({
         <Text
           className={`text-center text-primary text-base font-semibold font-psemibold leading-snug ${textClassNames}`}
         >
-          {title}
+          {text}
         </Text>
       )}
     </TouchableOpacity>

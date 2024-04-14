@@ -1,10 +1,10 @@
 import { Image, ScrollView, View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { Redirect, router } from "expo-router";
+import { router } from "expo-router";
 
 import { images } from "../constants";
-import { CustomButton, CustomGradientButton } from "../components";
+import { CustomGradientButton } from "../components";
 
 export default function App() {
   return (
@@ -45,12 +45,12 @@ export default function App() {
           </Text>
 
           {/* <CustomButton
-            title="Continue with Email"
+            text="Continue with Email"
             handlePress={() => router.push("/sign-in")}
           /> */}
 
           <CustomGradientButton
-            title="Continue with Email"
+            text="Continue with Email"
             handlePress={() => router.push("/sign-in")}
             // containerStyles={{ marginTop: 30 }}
           />

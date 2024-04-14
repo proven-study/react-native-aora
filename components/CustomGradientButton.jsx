@@ -2,7 +2,7 @@ import { TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 const CustomGradientButton = ({
-  title,
+  text,
   handlePress,
   isLoading,
   containerStyles,
@@ -40,7 +40,7 @@ const CustomGradientButton = ({
           <Text
             className={`text-center text-primary text-base font-semibold font-psemibold leading-snug ${textClassNames}`}
           >
-            {title}
+            {text}
           </Text>
         )}
       </LinearGradient>
