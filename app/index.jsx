@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { Redirect, router } from "expo-router";
 
 import { images } from "../constants";
-import { CustomButton } from "../components";
+import { CustomButton, CustomGradientButton } from "../components";
 
 export default function App() {
   return (
@@ -39,15 +39,20 @@ export default function App() {
             />
           </View>
 
-          <Text className="text-center text-gray-100 text-sm font-normal font-pregular leading-snug mt-5">
+          <Text className="text-center text-gray-100 text-sm font-normal font-pregular leading-snug mt-5 mb-[30px]">
             Where Creativity Meets Innovation: Embark on a Journey of Limitless
             Exploration with Aora
           </Text>
 
-          <CustomButton
+          {/* <CustomButton
             title="Continue with Email"
             handlePress={() => router.push("/sign-in")}
-            containerStyles={{ marginTop: 30 }}
+          /> */}
+
+          <CustomGradientButton
+            title="Continue with Email"
+            handlePress={() => router.push("/sign-in")}
+            // containerStyles={{ marginTop: 30 }}
           />
         </View>
       </ScrollView>

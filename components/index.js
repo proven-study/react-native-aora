@@ -1,3 +1,4 @@
 import CustomButton from "./CustomButton";
+import CustomGradientButton from "./CustomGradientButton";
 
-export { CustomButton };
+export { CustomButton, CustomGradientButton };
