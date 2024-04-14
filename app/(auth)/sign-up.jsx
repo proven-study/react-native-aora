@@ -6,10 +6,12 @@ import { images } from "../../constants";
 import { CustomGradientButton, FormField } from "../../components";
 import { signUp } from "../../lib/appwrite";
 import { validateEmail } from "../../lib/common";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignUp = () => {
   const params = useLocalSearchParams();
   const { email: _email } = params;
+  const { setUser, setIsLoggedIn } = useGlobalContext();
 
   const [form, setForm] = useState({
     username: "",
@@ -34,10 +36,12 @@ const SignUp = () => {
         return Alert.alert("Error", result.message);
       }
 
-      // now set it to global state and redirect to home
-      router.replace("/home");
+      setUser(result.data);
+      setIsLoggedIn(true);
 
       Alert.alert("Success", result.message);
+
+      router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {

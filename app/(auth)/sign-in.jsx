@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
-import { Link, router } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 
 import { images } from "../../constants";
 import { CustomGradientButton, FormField } from "../../components";
 import { signIn } from "../../lib/appwrite";
 import { validateEmail } from "../../lib/common";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
+  const params = useLocalSearchParams();
+  const { email: _email } = params;
+  const { setUser, setIsLoggedIn } = useGlobalContext();
   const [form, setForm] = useState({
-    email: "",
+    email: _email || "",
     password: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,12 +34,12 @@ const SignIn = () => {
         return Alert.alert("Error", result.message);
       }
 
-      console.log("handleSignIn -> result -> data", result.data);
-
-      // now set it to global state and redirect to home
-      router.replace("/home");
+      setUser(result.data);
+      setIsLoggedIn(true);
 
       Alert.alert("Success", result.message);
+
+      router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {

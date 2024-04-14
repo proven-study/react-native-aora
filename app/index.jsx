@@ -1,12 +1,19 @@
 import { Image, ScrollView, View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { router } from "expo-router";
+import { Redirect, router } from "expo-router";
 
 import { images } from "../constants";
 import { CustomGradientButton } from "../components";
+import { useGlobalContext } from "../context/GlobalProvider";
 
-export default function App() {
+const Onboarding = () => {
+  const { isLoading, isLoggedIn } = useGlobalContext();
+
+  if (!isLoading && isLoggedIn) {
+    return <Redirect href="/home" />;
+  }
+
   return (
     <SafeAreaView
       // className="bg-primary h-full" // This is not working on nativewind v4
@@ -61,4 +68,6 @@ export default function App() {
       <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
   );
-}
+};
+
+export default Onboarding;

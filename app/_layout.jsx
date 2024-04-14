@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { Text } from "react-native";
 import { Slot, Stack, SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
+
+import GlobalProvider from "../context/GlobalProvider";
+
 // import {
 //   useFonts as useGoogleFonts,
 //   Inter_100Thin,
@@ -66,12 +69,14 @@ const RootLayout = () => {
   //  return <Slot />;
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
-    </Stack>
+    <GlobalProvider>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
+      </Stack>
+    </GlobalProvider>
   );
 };
 
