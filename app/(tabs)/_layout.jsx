@@ -35,11 +35,11 @@ const tabs = [
 const TabsLayout = () => {
   return (
     <SafeAreaView
-      // className="bg-primary h-full" // This is not working on nativewind v4
+      // className="h-full bg-primary" // This is not working on nativewind v4
       style={{ backgroundColor: "#161622", height: "100%" }}
       edges={["right", "left", "top"]}
     >
-      <ScrollView contentContainerStyle={{ height: "100%" }}>
+      {/* <ScrollView contentContainerStyle={{ height: "100%" }}> */}
         <Tabs
           screenOptions={{
             tabBarShowLabel: false,
@@ -73,7 +73,7 @@ const TabsLayout = () => {
             />
           ))}
         </Tabs>
-      </ScrollView>
+      {/* </ScrollView> */}
 
       {/* clock, wifi, battery section bg and text color */}
       <StatusBar backgroundColor="#161622" style="light" />
