@@ -1,7 +1,5 @@
 import { useState } from "react";
 import {
-  View,
-  Text,
   FlatList,
   TouchableOpacity,
   ImageBackground,
@@ -9,9 +7,11 @@ import {
 } from "react-native";
 import PropTypes from "prop-types";
 import * as Animatable from "react-native-animatable";
+import { ResizeMode, Video } from "expo-av";
 
 import { icons } from "../constants";
-import { ResizeMode, Video } from "expo-av";
+import { getLatestPosts } from "../lib/appwrite";
+import useAppwrite from "../hooks/useAppwrite";
 
 const zoomIn = {
   0: {
@@ -85,8 +85,9 @@ TrendingItem.propTypes = {
   item: PropTypes.object,
 };
 
-const Trending = ({ posts }) => {
-  const [activeItem, setActiveItem] = useState(posts[1]);
+const Trending = () => {
+  const { data: latestPosts } = useAppwrite(getLatestPosts);
+  const [activeItem, setActiveItem] = useState(latestPosts?.[1]);
 
   const viewableItemsChanged = ({ viewableItems }) => {
     if (viewableItems.length > 0) {
@@ -96,7 +97,7 @@ const Trending = ({ posts }) => {
 
   return (
     <FlatList
-      data={posts}
+      data={latestPosts || []}
       keyExtractor={(item) => item.$id}
       renderItem={({ item }) => (
         <TrendingItem activeItem={activeItem} item={item} />
@@ -109,14 +110,6 @@ const Trending = ({ posts }) => {
       horizontal
     />
   );
-};
-
-Trending.defaultProps = {
-  posts: [],
-};
-
-Trending.propTypes = {
-  posts: PropTypes.array,
 };
 
 export default Trending;
