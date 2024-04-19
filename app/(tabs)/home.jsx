@@ -10,18 +10,11 @@ import {
 
 import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
 import { images } from "../../constants";
-import { getAllPosts } from "../../lib/appwrite";
+import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
 import useAppwrite from "../../hooks/useAppwrite";
 
 const HomeHeader = ({ name }) => {
-  const data = [
-    { $id: 1, title: "Video Title 1", description: "Video Description" },
-    { $id: 2, title: "Video Title 2", description: "Video Description" },
-    { $id: 3, title: "Video Title 3", description: "Video Description" },
-    { $id: 4, title: "Video Title 4", description: "Video Description" },
-    { $id: 5, title: "Video Title 5", description: "Video Description" },
-  ];
-
+  const { data: latestPosts, isLoading, refetch } = useAppwrite(getLatestPosts);
   const [searchText, setSearchText] = useState("");
 
   return (
@@ -55,7 +48,7 @@ const HomeHeader = ({ name }) => {
           Latest Videos
         </Text>
 
-        <Trending posts={data} />
+        <Trending posts={latestPosts} />
       </View>
     </View>
   );
@@ -71,8 +64,6 @@ const Home = () => {
     await refetch();
     setRefreshing(false);
   };
-
-  console.log(posts);
 
   return (
     <View className="h-full bg-primary">
