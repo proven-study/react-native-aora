@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Alert } from "react-native";
 
 const useAppwrite = (fn) => {
   const [data, setData] = useState([]);
@@ -12,11 +13,11 @@ const useAppwrite = (fn) => {
     try {
       const response = await fn();
 
-      if (response.status === "error") {
-        return Alert.alert("Error", response.message);
-      }
+      // if (response.status === "error") {
+      //   return Alert.alert("Error", response.message);
+      // }
 
-      setData(response.data);
+      setData(response.data || []);
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {

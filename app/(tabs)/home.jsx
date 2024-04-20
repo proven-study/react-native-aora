@@ -4,9 +4,11 @@ import { View, FlatList, RefreshControl } from "react-native";
 import { EmptyState, Header, VideoCard } from "../../components";
 import { getAllPosts } from "../../lib/appwrite";
 import useAppwrite from "../../hooks/useAppwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Home = () => {
-  const name = "John Doe";
+  const { user } = useGlobalContext();
+  const name = user?.username || "John Doe";
   const { data: posts, isLoading, refetch } = useAppwrite(getAllPosts);
   const [refreshing, setRefreshing] = useState(false);
 

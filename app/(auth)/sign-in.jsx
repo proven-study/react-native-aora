@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
 import { Link, router, useLocalSearchParams } from "expo-router";
 
 import { images } from "../../constants";
@@ -49,7 +49,7 @@ const SignIn = () => {
   };
 
   return (
-    <View className="bg-primary w-full h-full justify-center p-6">
+    <View className="justify-center w-full h-full p-6 bg-primary">
       <Image
         source={images.logo}
         resizeMode="contain"
@@ -93,7 +93,7 @@ const SignIn = () => {
       />
 
       {/* <View className="items-center mt-5">
-        <Text className="text-gray-100 text-sm font-normal font-pregular leading-tight">
+        <Text className="text-sm font-normal leading-tight text-gray-100 font-pregular">
           Don’t have an account?{" "}
           <Text
             // onPress={() => router.push("/sign-up")}
@@ -101,7 +101,7 @@ const SignIn = () => {
               pathname: "/sign-up",
               params: { email: form.email },
             })}
-            className="text-secondary-100 font-semibold font-psemibold"
+            className="font-semibold text-secondary-100 font-psemibold"
           >
             Signup
           </Text>
@@ -109,7 +109,7 @@ const SignIn = () => {
       </View> */}
 
       <View className="items-center mt-5">
-        <Text className="text-gray-100 text-sm font-normal font-pregular leading-tight">
+        <Text className="text-sm font-normal leading-tight text-gray-100 font-pregular">
           Don’t have an account?{" "}
           <Link
             replace
@@ -117,7 +117,7 @@ const SignIn = () => {
               pathname: "/sign-up",
               params: { email: form.email },
             }}
-            className="text-secondary-100 font-semibold font-psemibold"
+            className="font-semibold text-secondary-100 font-psemibold"
           >
             Signup
           </Link>
